@@ -31,21 +31,8 @@ for line in hold:
         links.append(temp)
 numberofLinks = len(links)
 
-#Format data for targeted country
-counter = 0
-limit = targetnum[1]
-f = 0
-for l in range(1000000000):
-    try:
-        if counter <= limit:
-            target.append(targetraw[f])
-            counter += 1
-        else:
-            limit = targetnum[f]
-            f += 1
-            counter = 0
-    except:
-        break
+print(targetraw)
+sleep(5)
 
 #Make chromedriver headless
 chrome_options = Options()
@@ -66,13 +53,21 @@ sleep(5)
 #scrape each email from each link
 for i in range(len(links)):
     driver.get(links[i])
-    sleep(1)
 
+    country = ""
     content = driver.page_source
     soup = BeautifulSoup(content, 'lxml')
 
+    for match in soup.findAll('h2', attrs={'class':'entry-title'}):
+        country = match.text
+
+    for nation in range(len(targetraw)):
+        if(targetraw[nation] in country):
+            country = targetraw[nation]
+            target.append(country)
+
     for match in soup.findAll('li', attrs={'id':'email'}):
-        print("Fetched email " + match.text[5:] + " " + str(i) + "/" + str(numberofLinks) + " " + str(i/numberofLinks * 100)[:5] + "% for " + target[i] + " | " + str(i))
+        print("Fetched email " + match.text[5:] + " " + str(i) + "/" + str(numberofLinks) + " " + str(i/numberofLinks * 100)[:5] + "% for " + country)
         address.append(match.text[5:]) #prevents substring 'Email' from being added to email address string
 
 #Package data into .csv file to be read and dealt with accordingly by mailer
