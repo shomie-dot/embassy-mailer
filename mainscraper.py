@@ -5,6 +5,7 @@ import pandas as pd
 import csv
 from selenium.webdriver.chrome.options import Options
 import os
+from time import sleep
 
 links = [] #stores links for each representation page
 target = [] #stores name of targeted country
@@ -16,9 +17,35 @@ address = [] #stores email address for its respective row
 filename = 'linksource.txt'
 f = open(filename, "r")
 hold = f.read().splitlines()
+i = 0;
+targetnum = [] #stores how long target occurs
+targetraw = [] #stores occuring target countries in data
 for line in hold:
-    links.append(line)
+    temp = line
+    if temp[0] == '$':
+        targetraw.append(line[1:])
+        targetnum.append(i)
+        i = 0
+    else:
+        i += 1
+        links.append(temp)
 numberofLinks = len(links)
+
+#Format data for targeted country
+counter = 0
+limit = targetnum[1]
+f = 0
+for l in range(1000000000):
+    try:
+        if counter <= limit:
+            target.append(targetraw[f])
+            counter += 1
+        else:
+            limit = targetnum[f]
+            f += 1
+            counter = 0
+    except:
+        break
 
 #Make chromedriver headless
 chrome_options = Options()
@@ -30,24 +57,23 @@ chrome_dir = "/usr/lib/chromium-browser/chromedriver"
 driver = driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_dir)
 driver.get("https://www.google.com")
 
+print(len(links))
+print(len(target))
+print(len(targetnum))
+sleep(5)
+
 #iterate through different embassy links stored
 #scrape each email from each link
 for i in range(len(links)):
-    temp = links[i]
-    driver.get(temp)
+    driver.get(links[i])
+    sleep(1)
 
     content = driver.page_source
     soup = BeautifulSoup(content, 'lxml')
 
-    country = ""
-
-    for match in soup.findAll('h2', attrs={'class':'entry-title'}):
-        country = match.text
-
     for match in soup.findAll('li', attrs={'id':'email'}):
-        print("Fetched email " + match.text[5:] + " " + str(i) + "/" + str(numberofLinks) + " " + str(i/numberofLinks * 100)[:5] + "% for " + country)
+        print("Fetched email " + match.text[5:] + " " + str(i) + "/" + str(numberofLinks) + " " + str(i/numberofLinks * 100)[:5] + "% for " + target[i] + " | " + str(i))
         address.append(match.text[5:]) #prevents substring 'Email' from being added to email address string
-        target.append(country)
 
 #Package data into .csv file to be read and dealt with accordingly by mailer
 df = pd.DataFrame({'Target':target,'Address':address})
