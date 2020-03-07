@@ -30,7 +30,7 @@ sudo apt install chromium-browser
 ```
 This command should suffice, although you should check to make sure that your chrome driver is found in the directory ```/usr/lib/chromium-browser/chromedriver``` in case any errors are encountered.
 
-Once installation is don I suggest piping the application into a ```log.txt``` file  using ```tee log.txt```.
+Once installation is done I suggest piping the application into a ```log.txt``` file  using ```tee log.txt```.
 
 #### Windows
 Please visit https://chromedriver.chromium.org/downloads to find a download for a chrome driver executable. Then change line 38 in ```mailer.py``` to your chrome driver directory.
