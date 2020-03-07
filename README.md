@@ -8,3 +8,4 @@ This is a project containing multiple scripts which webscrape and then email dif
 | Afghanistan | #####@gmail.com |
 | ...         | #####@gmail.com |
 | Zimbabwe    | #####@gmail.com |
+Example of Data Format in csv data.csv
