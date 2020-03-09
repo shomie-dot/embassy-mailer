@@ -2,7 +2,7 @@
 ---
 
 ## Project Info
-This project webscrapes emails from a public database of embassies all around the world using Selenium, Chromium and BeautifulSoup. The scraped data is then formatted and listed in a '.csv' format using Pandas, which is then parsed for automatic emailing purposes using stmp servers.
+This project webscrapes emails from a public database of embassies all around the world using Selenium, Chromium and BeautifulSoup. The scraped data is then formatted and listed in a '.csv' format using Pandas, which is then parsed for automatic emailing purposes using smtp servers.
 
 'data.csv' Example:
 
