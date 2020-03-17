@@ -39,3 +39,8 @@ Please visit https://chromedriver.chromium.org/downloads to find a download for 
 ---
 ## Common Issues
 A common issue encountered with the mailer occurs when signing into your Google account for Gmail. Currently, the best way to get it working is to enable 2FA on your Google account and then to make an app password which you then put into ```mailer.py```. Currently, I have not tested ```mailer.py``` with any other smtp servers.
+
+---
+## UPDATE:
+The Russian Consulate in Montreal sent me a Russian flag which means this thing actually worked which is pretty cool. 
+![Flag](image0.jpg)
