@@ -42,5 +42,5 @@ A common issue encountered with the mailer occurs when signing into your Google 
 
 ---
 ## UPDATE:
-The Russian Consulate in Montreal sent me a Russian flag which means this thing actually worked which is pretty cool. 
+The Russian Consulate in Montreal sent me a Russian flag which means this project was a success.
 ![Flag](image0.jpg)
